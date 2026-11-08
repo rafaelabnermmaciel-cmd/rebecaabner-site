@@ -1,6 +1,6 @@
 # rebecaabner.com.br
 
-Site de Rebeca Abner, designer de interiores em Brasília. Astro (site estático), publicado na Vercel.
+Site de Rebeca Abner, designer de interiores em Brasília. Astro (site estático), publicado no GitHub Pages, igual ao Ela me Fez.
 
 ## Rodar no computador
 
@@ -27,3 +27,8 @@ Site de Rebeca Abner, designer de interiores em Brasília. Astro (site estático
 O Espaço 32 (CASACOR Brasília 2026) já está em `src/content/projetos/04-espaco-32-casacor.md`, oculto.
 
 O site gera sozinho os tamanhos de imagem, o sitemap, a imagem de compartilhamento e a numeração.
+
+## Publicação
+
+Cada push na `main` roda o GitHub Actions (`.github/workflows/publicar.yml`), que gera o site e publica no GitHub Pages em 1 ou 2 minutos.
+Domínio: `public/CNAME`. DNS no Registro.br: quatro registros `A` (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) e `CNAME` de `www` apontando para `rafaelabnermmaciel-cmd.github.io`.
