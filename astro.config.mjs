@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // - com domínio configurado: https://rebecaabner.com.br
 // - sem domínio: https://rafaelabnermmaciel-cmd.github.io/rebecaabner-site
 // No computador, sem essas variáveis, usa o domínio final.
-const site = process.env.SITE_URL || 'https://rebecaabner.com.br';
+const site = (process.env.SITE_URL || 'https://rebecaabner.com.br').replace(/^http:/, 'https:');
 const base = process.env.BASE_PATH || '/';
 
 export default defineConfig({
