@@ -4,18 +4,6 @@ import Base from '../layouts/Base.astro';
 import retrato from '../assets/rebeca.webp';
 import { u } from '../lib/url';
 
-const formacao = [
-  ['Previsão 2031', 'Arquitetura e Urbanismo (em curso)', 'Instituto de Desenvolvimento e Pesquisa · IDP'],
-  ['2024', 'Tecnólogo em Design de Interiores', 'Centro Universitário do Distrito Federal · UDF'],
-  ['2023', 'Gestão na Administração Pública', 'ICT Cursos'],
-];
-const experiencia = [
-  { lugar: 'InteriorAS Design', cargo: 'Assistente de Design de Interiores · 2025 até hoje', extra: 'Estagiária de Design · 2024',
-    itens: ['Projetos residenciais e comerciais', 'Detalhamento técnico e compatibilização', 'Acompanhamento de obras e fornecedores', 'Participação no Espaço 32 da CASACOR Brasília 2026'] },
-  { lugar: 'Zoológico de Brasília', cargo: 'Estágio institucional · 2023', itens: ['Apoio em estudos de layout e intervenções nos espaços'] },
-];
-const softwares = ['AutoCAD', 'SketchUp', 'Enscape', 'V-Ray', 'Archicad'];
-const idiomas = [['Português', 'Nativo'], ['Inglês', 'Avançado'], ['Espanhol', 'Básico']];
 ---
 <Base titulo="Sobre" descricao="Rebeca Abner é designer de interiores em Brasília, formada pelo UDF e estudante de Arquitetura e Urbanismo no IDP." imagem={retrato}>
   <section class="wrap cab">
@@ -38,36 +26,10 @@ const idiomas = [['Português', 'Nativo'], ['Inglês', 'Avançado'], ['Espanhol'
 
   <section class="wrap blocos">
     <div class="bloco" data-reveal>
-      <h2 class="rotulo">Formação</h2>
-      <ul class="lista">
-        {formacao.map(([ano, curso, inst]) => (<li><span class="num">{ano}</span><div><b>{curso}</b><span>{inst}</span></div></li>))}
-      </ul>
-    </div>
-
-    <div class="bloco" data-reveal>
-      <h2 class="rotulo">Experiência</h2>
-      <ul class="lista">
-        {experiencia.map((e) => (
-          <li class="exp"><div><b>{e.lugar}</b><span>{e.cargo}</span>{e.extra && <span>{e.extra}</span>}
-            <ul class="itens">{e.itens.map((i) => <li>{i}</li>)}</ul></div></li>
-        ))}
-      </ul>
-    </div>
-
-    <div class="bloco premio" data-reveal>
-      <h2 class="rotulo">Prêmio</h2>
-      <p class="serif">“Os lugares que me amaram”</p>
-      <p>2º lugar no Concurso Design Mundo a Fora 2026, com o tema “Identidade Brasileira”.</p>
-    </div>
-
-    <div class="bloco duplo" data-reveal>
-      <div>
-        <h2 class="rotulo">Softwares</h2>
-        <ul class="tags">{softwares.map((s) => <li>{s}</li>)}</ul>
-      </div>
-      <div>
-        <h2 class="rotulo">Idiomas</h2>
-        <ul class="tags">{idiomas.map(([l, n]) => <li>{l} <span>· {n}</span></li>)}</ul>
+      <h2 class="rotulo">Trajetória</h2>
+      <div class="texto">
+        <p>Formada em Design de Interiores pelo UDF, Rebeca cursa Arquitetura e Urbanismo no IDP. Desde 2024 integra a equipe da InteriorAS Design, onde participa de projetos residenciais e comerciais do estudo inicial ao acompanhamento da obra.</p>
+        <p>Em 2026 fez parte da equipe do Espaço 32 na CASACOR Brasília e ficou em 2º lugar no Concurso Design Mundo a Fora, com o projeto <span class="serif">“Os lugares que me amaram”</span>.</p>
       </div>
     </div>
   </section>
