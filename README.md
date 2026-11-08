@@ -32,9 +32,8 @@ O site gera sozinho os tamanhos de imagem, o sitemap, a imagem de compartilhamen
 
 Cada push na `main` roda o GitHub Actions (`.github/workflows/publicar.yml`), que gera o site e publica no GitHub Pages em 1 ou 2 minutos.
 
-**Agora:** o site roda em https://rafaelabnermmaciel-cmd.github.io/rebecaabner-site
+O endereço se ajusta sozinho ao que estiver em Settings → Pages:
+- **Sem domínio personalizado:** https://rafaelabnermmaciel-cmd.github.io/rebecaabner-site
+- **Com `rebecaabner.com.br`:** o site passa a usar o domínio. Depois de mudar essa configuração, rode de novo o "Publicar site" em Actions.
 
-**Quando o DNS de rebecaabner.com.br estiver pronto:**
-1. Registro.br, zona DNS: quatro registros `A` com nome em branco (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) e `CNAME` `www` apontando para `rafaelabnermmaciel-cmd.github.io`.
-2. Em `astro.config.mjs`, troque `DOMINIO_PRONTO` para `true` e faça o push.
-3. Em Settings → Pages, informe `rebecaabner.com.br` em Custom domain e depois marque Enforce HTTPS.
+DNS no Registro.br (zona DNS, modo avançado): quatro registros `A` com nome em branco (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) e um `CNAME` `www` apontando para `rafaelabnermmaciel-cmd.github.io`.

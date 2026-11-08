@@ -1,14 +1,16 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Enquanto o DNS de rebecaabner.com.br não fica pronto, o site roda em
-// https://rafaelabnermmaciel-cmd.github.io/rebecaabner-site
-// Quando o domínio funcionar: troque DOMINIO_PRONTO para true.
-const DOMINIO_PRONTO = true;
+// O endereço vem do próprio GitHub Pages (ver .github/workflows/publicar.yml):
+// - com domínio configurado: https://rebecaabner.com.br
+// - sem domínio: https://rafaelabnermmaciel-cmd.github.io/rebecaabner-site
+// No computador, sem essas variáveis, usa o domínio final.
+const site = process.env.SITE_URL || 'https://rebecaabner.com.br';
+const base = process.env.BASE_PATH || '/';
 
 export default defineConfig({
-  site: DOMINIO_PRONTO ? 'https://rebecaabner.com.br' : 'https://rafaelabnermmaciel-cmd.github.io',
-  base: DOMINIO_PRONTO ? '/' : '/rebecaabner-site',
+  site,
+  base,
   trailingSlash: 'never',
   build: { format: 'file' },
   integrations: [sitemap()],
