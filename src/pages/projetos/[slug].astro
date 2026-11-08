@@ -35,7 +35,7 @@ const ficha = [
 
     <div class="foto capa" transition:name={`capa-${projeto.id}`} style={`--ph:${d.categoria === 'Residencial' ? 'var(--salvia)' : 'var(--terracota)'}`}>
       {d.capa
-        ? <Image src={d.capa} widths={[640, 1000, 1400, 1728]} sizes="100vw" alt={`${d.titulo}, imagem de abertura`} loading="eager" fetchpriority="high" />
+        ? <Image quality={88} src={d.capa} widths={[800, 1200, 1600, 2000, 2400]} sizes="100vw" alt={`${d.titulo}, imagem de abertura`} loading="eager" fetchpriority="high" />
         : <div class="ph"><span class="serif">Imagens a caminho</span></div>}
     </div>
 
@@ -54,7 +54,7 @@ const ficha = [
         {d.galeria.map((g, i) => (
           <figure class={`gi gi--${g.largura}`} data-reveal>
             <div class="foto foto--zoom">
-              <Image src={g.src} widths={g.largura === 'cheia' ? [640, 1000, 1400] : [480, 800, 1000]}
+              <Image quality={88} src={g.src} widths={g.largura === "cheia" ? [800, 1200, 1600, 2000, 2400] : [600, 900, 1200, 1500]}
                 sizes={g.largura === 'cheia' ? '100vw' : '(min-width: 860px) 45vw, 100vw'} alt={g.legenda ?? `${d.titulo}, imagem ${i + 1}`} />
             </div>
             {g.legenda && <figcaption class="rotulo">{g.legenda}</figcaption>}
@@ -71,7 +71,7 @@ const ficha = [
             {d.plantas.map((pl) => (
               <figure data-reveal>
                 <a href={pl.src.src} target="_blank" rel="noopener" class="pl-img" aria-label={`Abrir em tamanho grande: ${pl.legenda}`}>
-                  <Image src={pl.src} widths={[600, 1000, 1600]} sizes="(min-width: 860px) 45vw, 100vw" alt={pl.legenda} />
+                  <Image quality={88} src={pl.src} widths={[600, 1000, 1600]} sizes="(min-width: 860px) 45vw, 100vw" alt={pl.legenda} />
                 </a>
                 <figcaption class="rotulo">{pl.legenda}</figcaption>
               </figure>

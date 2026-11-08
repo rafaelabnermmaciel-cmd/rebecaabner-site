@@ -22,7 +22,7 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
 
   <figure class="hero">
     <div class="foto hero-foto" data-reveal>
-      <Image src={destaque} widths={[640, 1000, 1400, 1728]} sizes="100vw"
+      <Image quality={88} src={destaque} widths={[800, 1200, 1600, 2000, 2400]} sizes="100vw"
         alt="Recepção da Education Suporte: balcão em madeira com o painel orgânico e luz pendente linear" loading="eager" fetchpriority="high" />
     </div>
     <figcaption class="wrap rotulo"><span class="num">01</span> Education Suporte · Brasília, 2024</figcaption>
@@ -68,7 +68,7 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
   </section>
 
   <section class="chamada">
-    <Image src={textura} alt="" class="chamada-textura" widths={[600, 1000]} sizes="100vw" loading="lazy" />
+    <Image quality={88} src={textura} alt="" class="chamada-textura" widths={[800, 1400, 2000]} sizes="100vw" loading="lazy" />
     <div class="wrap chamada-in" data-reveal>
       <p class="rotulo">Contato</p>
       <h2 class="h-1">Vamos conversar<br /><span class="serif">sobre o seu espaço?</span></h2>

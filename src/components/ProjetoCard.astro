@@ -10,7 +10,7 @@ const cor = d.categoria === 'Residencial' ? 'var(--salvia)' : 'var(--terracota)'
 <a href={u(`/projetos/${projeto.id.replace(/^\d+-/, '')}`)} class:list={['card', `card--${tamanho}`]} data-reveal>
   <div class="foto" style={`--ph:${cor}`} transition:name={`capa-${projeto.id}`}>
     {(d.miniatura ?? d.capa) ? (
-      <Image src={d.miniatura ?? d.capa} widths={tamanho === 'grande' ? [640, 1000, 1600] : [480, 800]}
+      <Image quality={88} src={d.miniatura ?? d.capa} widths={tamanho === 'grande' ? [700, 1000, 1400, 1800] : [500, 800, 1100]}
         sizes={tamanho === 'grande' ? '(min-width: 860px) 62vw, 100vw' : '(min-width: 860px) 34vw, 100vw'}
         alt={`${d.titulo}: ${d.resumo}`} loading={eager ? 'eager' : 'lazy'} />
     ) : (
