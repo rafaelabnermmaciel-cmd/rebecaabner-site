@@ -32,10 +32,7 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     <p class="serif frase" data-reveal>Ambientes que unem função, beleza e bem-estar.</p>
     <div class="texto" data-reveal>
       <p>Projetos de interiores residenciais e comerciais em Brasília, do primeiro esboço ao acompanhamento da obra.</p>
-      <div class="acoes">
-        <a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a>
-        <a class="link rotulo" href={u('/sobre')}>Sobre a Rebeca →</a>
-      </div>
+      <a class="link rotulo" href={u('/sobre')}>Sobre a Rebeca →</a>
     </div>
   </section>
 
@@ -72,11 +69,8 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     <div class="wrap chamada-in" data-reveal>
       <p class="rotulo">Contato</p>
       <h2 class="h-1">Vamos conversar<br /><span class="serif">sobre o seu espaço?</span></h2>
-      <p class="chamada-txt">Conte o que você precisa e receba uma proposta com escopo, prazo e valor. A primeira conversa é sem compromisso.</p>
-      <div class="acoes">
-        <a class="btn btn--claro btn--cheio-claro" href={u('/orcamento')}>Pedir orçamento</a>
-        <a class="btn" href={waLink('Olá, Rebeca! Vim pelo seu site e gostaria de um orçamento para um projeto de interiores.')} target="_blank" rel="noopener">Chamar no WhatsApp</a>
-      </div>
+      <p class="chamada-txt">Conte o que você precisa. Depois da primeira conversa, você recebe uma proposta com escopo, prazo e valor.</p>
+      <a class="btn btn--claro btn--cheio-claro" href={waLink()} target="_blank" rel="noopener">Conversar no WhatsApp</a>
     </div>
   </section>
 </Base>

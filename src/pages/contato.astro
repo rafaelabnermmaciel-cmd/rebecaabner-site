@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE, waLink } from '../lib/site';
-import { u } from '../lib/url';
+import FormProjeto from '../components/FormProjeto.astro';
 const canais = [
   { rotulo: 'WhatsApp', valor: SITE.whatsappExibicao, href: waLink(), ext: true },
   { rotulo: 'E-mail', valor: SITE.email, href: `mailto:${SITE.email}` },
@@ -14,7 +14,6 @@ const canais = [
     <p class="rotulo">Contato</p>
     <h1 class="h-1">Vamos<br /><span class="serif">conversar?</span></h1>
     <p class="texto">Conte um pouco sobre o seu espaço: o que é, onde fica e o que você gostaria de mudar. A resposta vem pelo canal que você preferir.</p>
-    <div><a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a></div>
   </section>
   <ul class="wrap canais">
     {canais.map((c) => (
@@ -27,12 +26,24 @@ const canais = [
       </li>
     ))}
   </ul>
+  <section class="wrap projeto" id="projeto" aria-labelledby="t-proj">
+    <div class="projeto-cab">
+      <p class="rotulo">Seu projeto</p>
+      <h2 id="t-proj" class="h-2">Conte sobre <span class="serif">o seu espaço.</span></h2>
+      <p class="texto">Responda o que souber. A mensagem sai pronta no WhatsApp, e a Rebeca responde com os próximos passos.</p>
+    </div>
+    <FormProjeto />
+  </section>
 </Base>
 
 <style>
   .cab { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(48px, 8vw, 100px); display: grid; gap: 24px; }
   .cab .rotulo { margin: 0; }
-  .canais { list-style: none; margin: 0 auto; padding-bottom: clamp(80px, 12vw, 160px); }
+  .canais { list-style: none; margin: 0 auto; padding-bottom: clamp(80px, 12vw, 140px); }
+  .projeto { display: grid; gap: 40px; padding-bottom: clamp(80px, 12vw, 160px); }
+  .projeto-cab { display: grid; gap: 18px; align-content: start; }
+  .projeto-cab .rotulo { margin: 0; }
+  @media (min-width: 960px) { .projeto { grid-template-columns: 4fr 7fr; gap: 6vw; } .projeto-cab { position: sticky; top: 96px; align-self: start; } }
   .canais li { border-top: 1px solid var(--tinta); }
   .canais li:last-child { border-bottom: 1px solid var(--tinta); }
   .canais a { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; padding: 26px 0; align-items: baseline; }

@@ -1,20 +1,11 @@
 ---
-import Base from '../layouts/Base.astro';
-import Etapas from '../components/Etapas.astro';
-import { SITE, waLink } from '../lib/site';
+// Formulário que monta a mensagem e abre o WhatsApp (ou o e-mail) já preenchido.
+import { SITE } from '../lib/site';
 const tipos = ['Residencial', 'Comercial'];
 const servicos = ['Projeto completo', 'Um ou poucos ambientes', 'Marcenaria sob medida', 'Consultoria', 'Ainda não sei'];
 const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou mais', 'Só pesquisando'];
 ---
-<Base titulo="Pedir orçamento" descricao="Peça um orçamento de projeto de interiores com a Rebeca Abner, em Brasília. Responda algumas perguntas e envie direto pelo WhatsApp.">
-  <section class="wrap cab">
-    <p class="rotulo">Orçamento</p>
-    <h1 class="h-1">Conte sobre<br /><span class="serif">o seu espaço.</span></h1>
-    <p class="texto">Responda o que souber. A mensagem chega pronta no WhatsApp da Rebeca, e você recebe a resposta com os próximos passos e a proposta.</p>
-  </section>
-
-  <section class="wrap corpo">
-    <form id="form-orc" class="form" novalidate>
+<form id="form-orc" class="form" novalidate>
       <div class="campo">
         <label for="f-nome">Seu nome</label>
         <input id="f-nome" name="nome" autocomplete="name" required placeholder="Como posso te chamar?" />
@@ -64,18 +55,6 @@ const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou m
       </div>
     </form>
 
-    <aside class="lado">
-      <p class="rotulo">Como funciona</p>
-      <Etapas compacto />
-      <div class="direto">
-        <p class="rotulo">Prefere conversar direto?</p>
-        <a class="link" href={waLink()} target="_blank" rel="noopener">WhatsApp {SITE.whatsappExibicao}</a>
-        <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-      </div>
-    </aside>
-  </section>
-</Base>
-
 <script>
   import { SITE } from '../lib/site';
   document.addEventListener('astro:page-load', () => {
@@ -89,7 +68,7 @@ const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou m
       const d = new FormData(form);
       const v = (k: string) => String(d.get(k) ?? '').trim();
       const linhas = [
-        `Olá, Rebeca! Vim pelo seu site e gostaria de um orçamento.`,
+        `Olá, Rebeca! Vim pelo seu site e gostaria de conversar sobre um projeto.`,
         ``,
         `Nome: ${v('nome')}`,
         `Tipo de espaço: ${v('tipo')}`,
@@ -117,16 +96,12 @@ const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou m
     document.getElementById('f-email')!.addEventListener('click', (e) => {
       e.preventDefault();
       if (!valido()) return;
-      location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Orçamento pelo site')}&body=${encodeURIComponent(montar())}`;
+      location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Projeto de interiores')}&body=${encodeURIComponent(montar())}`;
     });
   });
 </script>
 
 <style>
-  .cab { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(36px, 6vw, 72px); display: grid; gap: 24px; }
-  .cab .rotulo { margin: 0; }
-  .corpo { display: grid; gap: 64px; padding-bottom: clamp(80px, 12vw, 160px); }
-  @media (min-width: 960px) { .corpo { grid-template-columns: 7fr 4fr; gap: 6vw; align-items: start; } .lado { position: sticky; top: 96px; } }
   .form { display: grid; gap: 28px; border-top: 1px solid var(--tinta); padding-top: 28px; }
   .campo { display: grid; gap: 10px; border: 0; margin: 0; padding: 0; min-width: 0; }
   label, legend { font: 500 .72rem/1.4 var(--f-texto); text-transform: uppercase; letter-spacing: .2em; color: var(--tinta); padding: 0; margin-bottom: 2px; }
@@ -150,8 +125,4 @@ const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou m
   .erro { color: var(--terracota); margin: 0; }
   .enviar { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center; }
   button.btn { cursor: pointer; font-family: var(--f-texto); }
-  .lado { display: grid; gap: 18px; align-content: start; }
-  .lado > .rotulo { margin: 0; color: var(--tinta); }
-  .direto { display: grid; gap: 8px; margin-top: 24px; border-top: 1px solid var(--tinta); padding-top: 18px; }
-  .direto .rotulo { margin: 0 0 4px; }
 </style>

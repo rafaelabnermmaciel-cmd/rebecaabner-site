@@ -6,21 +6,20 @@ const itens = [
   { href: '/projetos', label: 'Projetos' },
   { href: '/servicos', label: 'Serviços' },
   { href: '/sobre', label: 'Sobre' },
-  { href: '/contato', label: 'Contato', some: true },
+  { href: '/contato', label: 'Contato' },
 ];
 ---
 <header class="topo" transition:persist>
   <div class="wrap topo-in">
     <a href={u('/')} class="marca" aria-label="Rebeca Abner, página inicial">
-      <Monograma size={26} />
+      <Monograma size={24} />
       <span class="rotulo marca-nome">Rebeca Abner</span>
     </a>
     <nav aria-label="Principal">
       <ul>
         {itens.map((i) => (
-          <li class:list={{ some: i.some }}><a href={u(i.href)} class="rotulo link" aria-current={path.startsWith(u(i.href)) ? 'page' : undefined}>{i.label}</a></li>
+          <li><a href={u(i.href)} class="rotulo link" aria-current={path.startsWith(u(i.href)) ? 'page' : undefined}>{i.label}</a></li>
         ))}
-        <li><a href={u('/orcamento')} class="rotulo orc" aria-current={path.startsWith(u('/orcamento')) ? 'page' : undefined}>Orçamento</a></li>
       </ul>
     </nav>
   </div>
@@ -32,10 +31,7 @@ const itens = [
   .marca { display: flex; align-items: center; gap: 12px; color: var(--tinta); }
   .marca-nome { color: var(--tinta); letter-spacing: .3em; }
   ul { display: flex; align-items: center; gap: clamp(12px, 3vw, 36px); list-style: none; margin: 0; padding: 0; }
-  .orc { display: inline-block; padding: .75em 1.2em; border-radius: 999px; background: var(--tinta); color: var(--papel) !important; letter-spacing: .18em; transition: background .3s var(--ease); }
-  .orc:hover, .orc[aria-current='page'] { background: var(--terracota); }
-  @media (max-width: 720px) { .some { display: none; } }
-  @media (max-width: 400px) { ul { gap: 10px; } .orc { padding: .7em .9em; letter-spacing: .12em; } nav .rotulo { letter-spacing: .14em; } }
+  @media (max-width: 420px) { ul { gap: 12px; } nav .rotulo { letter-spacing: .14em; } }
   nav a { color: var(--tinta); }
   nav a[aria-current='page']::after { transform: scaleX(1); }
   @media (max-width: 520px) { .marca-nome { display: none; } .topo-in { height: 58px; } }

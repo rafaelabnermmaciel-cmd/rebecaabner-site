@@ -1,9 +1,10 @@
 ---
-// Monograma "RA": arco (A) com a perna do R. Redesenhado em vetor a partir do portfólio.
+// Monograma "RA" de Rebeca Abner, em vetor, redesenhado a partir do portfólio (traço medido no original).
 interface Props { size?: number; class?: string; title?: string }
 const { size = 32, class: cls = '', title = 'Rebeca Abner' } = Astro.props;
 ---
-<svg class={cls} width={size} height={size * 1.15} viewBox="0 0 80 92" role="img" aria-label={title} fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round">
-  <path d="M10 92V40a30 30 0 0 1 60 0v52" />
-  <path d="M10 62h20q6 0 10 5l18 25" />
+<svg class={cls} width={size} height={Math.round(size * 1.27)} viewBox="0 0 100 127" role="img" aria-label={title} fill="none" stroke="currentColor" shape-rendering="geometricPrecision">
+  <path stroke-width="16.4" d="M8.65 127V49.5a41.2 41.2 0 0 1 82.4 0V127" />
+  <path stroke-width="16.1" d="M23.4 86H38q8.3 0 12.4 6L77.2 131" />
 </svg>
+<style>svg { overflow: hidden; display: block; }</style>

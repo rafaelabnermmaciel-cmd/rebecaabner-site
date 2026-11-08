@@ -4,22 +4,17 @@ import Etapas from '../components/Etapas.astro';
 import { SERVICOS, ENTREGAS, PERGUNTAS } from '../lib/servicos';
 import { dois } from '../lib/projetos';
 import { u } from '../lib/url';
-import { waLink } from '../lib/site';
 const faq = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: PERGUNTAS.map((q) => ({ '@type': 'Question', name: q.p, acceptedAnswer: { '@type': 'Answer', text: q.r } })),
 };
 ---
-<Base titulo="Serviços e orçamento" descricao="Projeto de interiores residencial e comercial, marcenaria sob medida e consultoria em Brasília. Veja como funciona e peça seu orçamento pelo WhatsApp.">
+<Base titulo="Serviços" descricao="Projeto de interiores residencial e comercial, marcenaria sob medida e consultoria em Brasília. Veja como funciona um projeto, do primeiro contato à obra.">
   <script type="application/ld+json" set:html={JSON.stringify(faq)} />
   <section class="wrap cab">
     <p class="rotulo">Serviços</p>
     <h1 class="h-1">Do primeiro esboço<br /><span class="serif">à obra pronta.</span></h1>
     <p class="texto">Projetos de interiores para casas e empresas em Brasília. Cada proposta é feita sob medida, a partir de uma conversa sobre o seu espaço.</p>
-    <div class="acoes">
-      <a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a>
-      <a class="link rotulo" href={waLink('Olá, Rebeca! Vim pelo site e queria tirar uma dúvida sobre os seus serviços.')} target="_blank" rel="noopener">Tirar dúvida no WhatsApp →</a>
-    </div>
   </section>
 
   <section class="wrap bloco" aria-labelledby="t-servicos">
@@ -53,7 +48,7 @@ const faq = {
   <section class="faixa">
     <div class="wrap faixa-in" data-reveal>
       <h2 class="h-2">Vamos falar do seu espaço?</h2>
-      <a class="btn btn--claro" href={u('/orcamento')}>Pedir orçamento</a>
+      <a class="btn btn--claro" href={u('/contato')}>Começar uma conversa</a>
     </div>
   </section>
 </Base>

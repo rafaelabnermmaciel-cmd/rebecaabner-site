@@ -86,8 +86,7 @@ const ficha = [
       <div class="fim-nav">
         <div class="cta">
           <p class="serif cta-frase">Gostou deste projeto?</p>
-          <a class="btn btn--cheio" href={u(`/orcamento?projeto=${encodeURIComponent(d.titulo)}`)}>Pedir orçamento</a>
-          <a class="link rotulo" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar.`)} target="_blank" rel="noopener">Falar no WhatsApp →</a>
+          <a class="link rotulo" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar sobre um projeto.`)} target="_blank" rel="noopener">Conversar sobre um projeto assim →</a>
         </div>
         {proximo.id !== projeto.id && (
           <a class="prox" href={u(`/projetos/${proximo.id.replace(/^\d+-/, '')}`)}>
