@@ -1,5 +1,6 @@
 ---
 import Monograma from './Monograma.astro';
+import { u } from '../lib/url';
 const path = Astro.url.pathname.replace(/\.html$/, '');
 const itens = [
   { href: '/projetos', label: 'Projetos' },
@@ -9,14 +10,14 @@ const itens = [
 ---
 <header class="topo" transition:persist>
   <div class="wrap topo-in">
-    <a href="/" class="marca" aria-label="Rebeca Abner, página inicial">
+    <a href={u('/')} class="marca" aria-label="Rebeca Abner, página inicial">
       <Monograma size={26} />
       <span class="rotulo marca-nome">Rebeca Abner</span>
     </a>
     <nav aria-label="Principal">
       <ul>
         {itens.map((i) => (
-          <li><a href={i.href} class="rotulo link" aria-current={path.startsWith(i.href) ? 'page' : undefined}>{i.label}</a></li>
+          <li><a href={u(i.href)} class="rotulo link" aria-current={path.startsWith(u(i.href)) ? 'page' : undefined}>{i.label}</a></li>
         ))}
       </ul>
     </nav>

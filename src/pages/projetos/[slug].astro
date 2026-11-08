@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { projetosPublicados, dois } from '../../lib/projetos';
 import { waLink } from '../../lib/site';
+import { u } from '../../lib/url';
 
 export async function getStaticPaths() {
   const lista = await projetosPublicados();
@@ -85,7 +86,7 @@ const ficha = [
       <div class="fim-nav">
         <a class="btn" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar.`)} target="_blank" rel="noopener">Quero um projeto assim</a>
         {proximo.id !== projeto.id && (
-          <a class="prox" href={`/projetos/${proximo.id.replace(/^\d+-/, '')}`}>
+          <a class="prox" href={u(`/projetos/${proximo.id.replace(/^\d+-/, '')}`)}>
             <span class="rotulo">Próximo projeto</span>
             <span class="h-2">{proximo.data.titulo} →</span>
           </a>

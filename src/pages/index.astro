@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import ProjetoCard from '../components/ProjetoCard.astro';
 import { projetosPublicados } from '../lib/projetos';
 import { waLink } from '../lib/site';
+import { u } from '../lib/url';
 import destaque from '../assets/projetos/education-suporte/01-recepcao.webp';
 import textura from '../assets/textura-brasilia.webp';
 
@@ -28,14 +29,14 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     <p class="serif frase" data-reveal>Ambientes que unem função, beleza e bem-estar.</p>
     <div class="texto" data-reveal>
       <p>Projetos de interiores residenciais e comerciais em Brasília, do primeiro esboço ao acompanhamento da obra.</p>
-      <a class="link rotulo" href="/sobre">Sobre a Rebeca →</a>
+      <a class="link rotulo" href={u('/sobre')}>Sobre a Rebeca →</a>
     </div>
   </section>
 
   <section class="selecao wrap" aria-labelledby="t-projetos">
     <header class="sec-topo">
       <h2 id="t-projetos" class="h-2">Projetos</h2>
-      <a class="link rotulo" href="/projetos">Ver todos</a>
+      <a class="link rotulo" href={u('/projetos')}>Ver todos</a>
     </header>
     <div class="grade">
       {projetos.map((p, i) => (

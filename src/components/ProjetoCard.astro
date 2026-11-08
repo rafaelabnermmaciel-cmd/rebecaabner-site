@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import { dois } from '../lib/projetos';
+import { u } from '../lib/url';
 interface Props { projeto: any; tamanho?: 'grande' | 'pequeno'; eager?: boolean }
 const { projeto, tamanho = 'grande', eager = false } = Astro.props;
 const d = projeto.data;
 const cor = d.categoria === 'Residencial' ? 'var(--salvia)' : 'var(--terracota)';
 ---
-<a href={`/projetos/${projeto.id.replace(/^\d+-/, '')}`} class:list={['card', `card--${tamanho}`]} data-reveal>
+<a href={u(`/projetos/${projeto.id.replace(/^\d+-/, '')}`)} class:list={['card', `card--${tamanho}`]} data-reveal>
   <div class="foto" style={`--ph:${cor}`} transition:name={`capa-${projeto.id}`}>
     {(d.miniatura ?? d.capa) ? (
       <Image src={d.miniatura ?? d.capa} widths={tamanho === 'grande' ? [640, 1000, 1600] : [480, 800]}

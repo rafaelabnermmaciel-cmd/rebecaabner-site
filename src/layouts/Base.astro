@@ -6,14 +6,15 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFlutuante from '../components/WhatsAppFlutuante.astro';
 import { SITE } from '../lib/site';
+import { u } from '../lib/url';
 import capaPadrao from '../assets/projetos/education-suporte/01-recepcao.webp';
 
 interface Props { titulo?: string; descricao?: string; imagem?: ImageMetadata; escuro?: boolean }
 const { titulo, descricao = SITE.descricao, imagem = capaPadrao } = Astro.props;
 const tituloCompleto = titulo ? `${titulo} · ${SITE.nome}` : `${SITE.nome} · Designer de Interiores em Brasília`;
-const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/', Astro.site).href;
 const og = await getImage({ src: imagem, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 82 });
-const ogUrl = new URL(og.src, SITE.url).href;
+const ogUrl = new URL(og.src, Astro.site).href;
 const ld = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -38,10 +39,10 @@ const ld = {
     <meta name="description" content={descricao} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#f6f2ec" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={u('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={u('/favicon.png')} type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href={u('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={u('/sitemap-index.xml')} />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
