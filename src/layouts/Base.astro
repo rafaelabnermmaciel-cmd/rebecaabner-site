@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import { getImage } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFlutuante from '../components/WhatsAppFlutuante.astro';
+import { SITE } from '../lib/site';
+import capaPadrao from '../assets/projetos/education-suporte/01-recepcao.webp';
+
+interface Props { titulo?: string; descricao?: string; imagem?: ImageMetadata; escuro?: boolean }
+const { titulo, descricao = SITE.descricao, imagem = capaPadrao } = Astro.props;
+const tituloCompleto = titulo ? `${titulo} · ${SITE.nome}` : `${SITE.nome} · Designer de Interiores em Brasília`;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
+const og = await getImage({ src: imagem, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 82 });
+const ogUrl = new URL(og.src, SITE.url).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: `${SITE.nome} · Design de Interiores`,
+  description: SITE.descricao,
+  url: SITE.url,
+  image: ogUrl,
+  email: SITE.email,
+  telephone: '+' + SITE.whatsapp,
+  areaServed: { '@type': 'City', name: 'Brasília' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Brasília', addressRegion: 'DF', addressCountry: 'BR' },
+  founder: { '@type': 'Person', name: SITE.nome, jobTitle: 'Designer de Interiores' },
+  sameAs: [`https://www.instagram.com/${SITE.instagram}`, `https://www.linkedin.com/in/${SITE.linkedin}`],
+};
+---
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#f6f2ec" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={SITE.nome} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script is:inline>document.documentElement.classList.remove('no-js')</script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="sr-only" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo" transition:animate="fade"><slot /></main>
+    <Footer />
+    <WhatsAppFlutuante />
+    <script>
+      const ver = () => {
+        const els = document.querySelectorAll('[data-reveal]:not(.in)');
+        if (!('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('in')); return; }
+        const io = new IntersectionObserver((entradas) => {
+          entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach((e) => io.observe(e));
+      };
+      document.addEventListener('astro:page-load', ver);
+    </script>
+  </body>
+</html>

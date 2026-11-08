@@ -1,0 +1,32 @@
+---
+import Monograma from './Monograma.astro';
+import { SITE, waLink } from '../lib/site';
+const ano = new Date().getFullYear();
+---
+<footer class="rodape">
+  <div class="wrap grid">
+    <div class="assina">
+      <Monograma size={40} />
+      <p class="rotulo">Rebeca Abner<br />Design de Interiores · Brasília</p>
+    </div>
+    <ul class="contatos">
+      <li><a class="link" href={waLink()} target="_blank" rel="noopener">WhatsApp {SITE.whatsappExibicao}</a></li>
+      <li><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+      <li><a class="link" href={`https://www.instagram.com/${SITE.instagram}`} target="_blank" rel="noopener">Instagram @{SITE.instagram}</a></li>
+      <li><a class="link" href={`https://www.linkedin.com/in/${SITE.linkedin}`} target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="rotulo copy">© {ano} Rebeca Abner</p>
+  </div>
+</footer>
+
+<style>
+  .rodape { border-top: 1px solid var(--linha); padding: 56px 0 96px; margin-top: 0; }
+  .grid { display: grid; gap: 32px; grid-template-columns: 1fr; }
+  .assina { display: flex; gap: 18px; align-items: flex-end; }
+  .assina p { margin: 0; line-height: 1.9; }
+  .contatos { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: .95rem; }
+  .copy { margin: 0; }
+  @media (min-width: 860px) {
+    .grid { grid-template-columns: 1.2fr 1fr auto; align-items: end; }
+  }
+</style>

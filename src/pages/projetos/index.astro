@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjetoCard from '../../components/ProjetoCard.astro';
+import { projetosPublicados } from '../../lib/projetos';
+const projetos = await projetosPublicados();
+const categorias = ['Todos', ...new Set(projetos.map((p) => p.data.categoria))];
+---
+<Base titulo="Projetos" descricao="Projetos de design de interiores residenciais e comerciais de Rebeca Abner, em Brasília.">
+  <section class="wrap topo-pag">
+    <p class="rotulo">Índice · {String(projetos.length).padStart(2, '0')} projetos</p>
+    <h1 class="h-1">Projetos</h1>
+    <div class="filtros" role="group" aria-label="Filtrar por categoria">
+      {categorias.map((c, i) => <button type="button" class="rotulo" data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+    </div>
+  </section>
+  <section class="wrap grade">
+    {projetos.map((p, i) => (
+      <div class={`g g-${i % 4}`} data-categoria={p.data.categoria}>
+        <ProjetoCard projeto={p} tamanho={i % 2 ? 'pequeno' : 'grande'} eager={i < 2} />
+      </div>
+    ))}
+  </section>
+</Base>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const botoes = document.querySelectorAll<HTMLButtonElement>('.filtros button');
+    botoes.forEach((b) => b.addEventListener('click', () => {
+      botoes.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const cat = b.dataset.cat;
+      document.querySelectorAll<HTMLElement>('[data-categoria]').forEach((el) => {
+        el.hidden = cat !== 'Todos' && el.dataset.categoria !== cat;
+      });
+    }));
+  });
+</script>
+
+<style>
+  .topo-pag { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(40px, 7vw, 90px); display: grid; gap: 22px; }
+  .topo-pag .rotulo { margin: 0; }
+  .filtros { display: flex; flex-wrap: wrap; gap: 8px 26px; border-top: 1px solid var(--tinta); padding-top: 18px; }
+  .filtros button { background: none; border: 0; padding: 4px 0; cursor: pointer; color: var(--tinta-2); }
+  .filtros button[aria-pressed='true'] { color: var(--tinta); text-decoration: underline; text-underline-offset: 6px; }
+  .grade { display: grid; gap: clamp(56px, 9vw, 120px); padding-bottom: clamp(80px, 12vw, 160px); }
+  @media (min-width: 860px) {
+    .grade { grid-template-columns: repeat(12, 1fr); column-gap: 24px; }
+    .g-0 { grid-column: 1 / span 7; }
+    .g-1 { grid-column: 9 / span 4; margin-top: 30%; }
+    .g-2 { grid-column: 2 / span 4; }
+    .g-3 { grid-column: 6 / span 7; margin-top: 18%; }
+  }
+</style>

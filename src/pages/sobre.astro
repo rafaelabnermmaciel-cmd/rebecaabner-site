@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import retrato from '../assets/rebeca.webp';
+import { waLink } from '../lib/site';
+
+const formacao = [
+  ['Previsão 2031', 'Arquitetura e Urbanismo (em curso)', 'Instituto de Desenvolvimento e Pesquisa · IDP'],
+  ['2024', 'Tecnólogo em Design de Interiores', 'Centro Universitário do Distrito Federal · UDF'],
+  ['2023', 'Gestão na Administração Pública', 'ICT Cursos'],
+];
+const experiencia = [
+  { lugar: 'InteriorAS Design', cargo: 'Assistente de Design de Interiores · 2025 até hoje', extra: 'Estagiária de Design · 2024',
+    itens: ['Projetos residenciais e comerciais', 'Detalhamento técnico e compatibilização', 'Acompanhamento de obras e fornecedores', 'Participação no Espaço 32 da CASACOR Brasília 2026'] },
+  { lugar: 'Zoológico de Brasília', cargo: 'Estágio institucional · 2023', itens: ['Apoio em estudos de layout e intervenções nos espaços'] },
+];
+const softwares = ['AutoCAD', 'SketchUp', 'Enscape', 'V-Ray', 'Archicad'];
+const idiomas = [['Português', 'Nativo'], ['Inglês', 'Avançado'], ['Espanhol', 'Básico']];
+---
+<Base titulo="Sobre" descricao="Rebeca Abner é designer de interiores em Brasília, formada pelo UDF e estudante de Arquitetura e Urbanismo no IDP." imagem={retrato}>
+  <section class="wrap cab">
+    <p class="rotulo">Sobre</p>
+    <h1 class="h-1">Rebeca Abner</h1>
+  </section>
+
+  <section class="wrap bio">
+    <div class="foto retrato" data-reveal>
+      <Image src={retrato} widths={[480, 800]} sizes="(min-width: 860px) 38vw, 100vw" alt="Retrato de Rebeca Abner, de blusa verde, diante de um fundo terracota" loading="eager" />
+    </div>
+    <div class="bio-txt">
+      <p class="serif frase" data-reveal>Acredito no design como forma de transformar a relação das pessoas com os espaços.</p>
+      <div class="texto" data-reveal>
+        <p>Sou designer de interiores em Brasília. Me interessa criar espaços que unam funcionalidade, estética e bem-estar, pensados a partir de quem vai viver ou trabalhar neles.</p>
+        <p>Hoje faço parte da equipe da InteriorAS Design, onde desenvolvo projetos residenciais e comerciais, do estudo de layout ao detalhamento e ao acompanhamento da obra. Em paralelo, curso Arquitetura e Urbanismo no IDP.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap blocos">
+    <div class="bloco" data-reveal>
+      <h2 class="rotulo">Formação</h2>
+      <ul class="lista">
+        {formacao.map(([ano, curso, inst]) => (<li><span class="num">{ano}</span><div><b>{curso}</b><span>{inst}</span></div></li>))}
+      </ul>
+    </div>
+
+    <div class="bloco" data-reveal>
+      <h2 class="rotulo">Experiência</h2>
+      <ul class="lista">
+        {experiencia.map((e) => (
+          <li class="exp"><div><b>{e.lugar}</b><span>{e.cargo}</span>{e.extra && <span>{e.extra}</span>}
+            <ul class="itens">{e.itens.map((i) => <li>{i}</li>)}</ul></div></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="bloco premio" data-reveal>
+      <h2 class="rotulo">Prêmio</h2>
+      <p class="serif">“Os lugares que me amaram”</p>
+      <p>2º lugar no Concurso Design Mundo a Fora 2026, com o tema “Identidade Brasileira”.</p>
+    </div>
+
+    <div class="bloco duplo" data-reveal>
+      <div>
+        <h2 class="rotulo">Softwares</h2>
+        <ul class="tags">{softwares.map((s) => <li>{s}</li>)}</ul>
+      </div>
+      <div>
+        <h2 class="rotulo">Idiomas</h2>
+        <ul class="tags">{idiomas.map(([l, n]) => <li>{l} <span>· {n}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap fim">
+    <a class="btn" href={waLink()} target="_blank" rel="noopener">Conversar sobre um projeto</a>
+  </section>
+</Base>
+
+<style>
+  .cab { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(28px, 5vw, 64px); display: grid; gap: 20px; }
+  .cab .rotulo { margin: 0; }
+  .bio { display: grid; gap: 40px; }
+  .retrato { aspect-ratio: 2 / 3; }
+  .bio .frase { margin-bottom: 32px; }
+  @media (min-width: 860px) { .bio { grid-template-columns: 5fr 6fr; gap: 7vw; align-items: end; } }
+
+  .blocos { display: grid; gap: 0; padding-top: clamp(80px, 12vw, 160px); }
+  .bloco { border-top: 1px solid var(--tinta); padding: 22px 0 48px; display: grid; gap: 18px; }
+  .bloco h2 { margin: 0; color: var(--tinta); }
+  @media (min-width: 860px) { .bloco { grid-template-columns: 4fr 7fr; gap: 8vw; } .duplo { grid-template-columns: 1fr 1fr; } }
+  .lista, .itens, .tags { list-style: none; margin: 0; padding: 0; }
+  .lista { display: grid; gap: 22px; }
+  .lista > li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; }
+  .lista > li.exp { grid-template-columns: 1fr; }
+  .lista b { display: block; font-weight: 600; }
+  .lista span { display: block; color: var(--tinta-2); font-size: .95rem; }
+  .itens { margin-top: 10px; display: grid; gap: 4px; font-size: .95rem; }
+  .itens li::before { content: '— '; color: var(--terracota); }
+  .premio .serif { font-size: clamp(1.6rem, 3.6vw, 2.6rem); line-height: 1.1; margin: 0; }
+  .premio p:last-child { color: var(--tinta-2); margin: 0; }
+  @media (min-width: 860px) { .premio { grid-template-columns: 4fr 7fr; row-gap: 14px; } .premio .serif, .premio p:last-child { grid-column: 2; } }
+  .duplo > div { display: grid; gap: 16px; align-content: start; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags li { border: 1px solid var(--linha); border-radius: 999px; padding: .45em 1em; font-size: .9rem; }
+  .tags span { color: var(--tinta-2); }
+  .fim { padding-block: 24px clamp(80px, 12vw, 160px); }
+</style>

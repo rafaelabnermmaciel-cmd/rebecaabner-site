@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { projetosPublicados, dois } from '../../lib/projetos';
+import { waLink } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const lista = await projetosPublicados();
+  return lista.map((p, i) => ({
+    params: { slug: p.id.replace(/^\d+-/, '') },
+    props: { projeto: p, proximo: lista[(i + 1) % lista.length] },
+  }));
+}
+const { projeto, proximo } = Astro.props;
+const d = projeto.data;
+const { Content } = await render(projeto);
+const ficha = [
+  ['Status', d.status === 'Acadêmico' ? 'Projeto acadêmico' : `Projeto ${d.status.toLowerCase()}`],
+  ['Categoria', d.categoria],
+  ['Local', d.local],
+  ['Ano', d.ano],
+  ['Área', d.area],
+  ['Cliente', d.cliente],
+  ['Equipe', d.equipe],
+].filter(([, v]) => v);
+---
+<Base titulo={d.titulo} descricao={`${d.titulo}: ${d.resumo}`} imagem={d.capa}>
+  <article>
+    <header class="wrap cab">
+      <p class="rotulo"><span class="num">{dois(d.numero)}</span> &nbsp;/&nbsp; Projetos</p>
+      <h1 class="h-1">{d.titulo}</h1>
+    </header>
+
+    <div class="foto capa" transition:name={`capa-${projeto.id}`} style={`--ph:${d.categoria === 'Residencial' ? 'var(--salvia)' : 'var(--terracota)'}`}>
+      {d.capa
+        ? <Image src={d.capa} widths={[640, 1000, 1400, 1728]} sizes="100vw" alt={`${d.titulo}, imagem de abertura`} loading="eager" fetchpriority="high" />
+        : <div class="ph"><span class="serif">Imagens a caminho</span></div>}
+    </div>
+
+    <section class="wrap intro">
+      <dl class="ficha">
+        {ficha.map(([k, v]) => (<div><dt class="rotulo">{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+      <div>
+        {d.citacao && <p class="serif frase" data-reveal>{d.citacao}</p>}
+        <div class="texto" data-reveal><Content /></div>
+      </div>
+    </section>
+
+    {d.galeria.length > 0 && (
+      <section class="wrap galeria" aria-label="Galeria">
+        {d.galeria.map((g, i) => (
+          <figure class={`gi gi--${g.largura}`} data-reveal>
+            <div class="foto foto--zoom">
+              <Image src={g.src} widths={g.largura === 'cheia' ? [640, 1000, 1400] : [480, 800, 1000]}
+                sizes={g.largura === 'cheia' ? '100vw' : '(min-width: 860px) 45vw, 100vw'} alt={g.legenda ?? `${d.titulo}, imagem ${i + 1}`} />
+            </div>
+            {g.legenda && <figcaption class="rotulo">{g.legenda}</figcaption>}
+          </figure>
+        ))}
+      </section>
+    )}
+
+    {d.plantas.length > 0 && (
+      <section class="plantas" aria-labelledby="t-plantas">
+        <div class="wrap">
+          <header class="sec-topo"><h2 id="t-plantas" class="h-2">Desenhos técnicos</h2><span class="rotulo">{dois(d.plantas.length)} pranchas</span></header>
+          <div class="pl-grade">
+            {d.plantas.map((pl) => (
+              <figure data-reveal>
+                <a href={pl.src.src} target="_blank" rel="noopener" class="pl-img" aria-label={`Abrir em tamanho grande: ${pl.legenda}`}>
+                  <Image src={pl.src} widths={[600, 1000, 1600]} sizes="(min-width: 860px) 45vw, 100vw" alt={pl.legenda} />
+                </a>
+                <figcaption class="rotulo">{pl.legenda}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <footer class="wrap fim">
+      {d.creditos && <p class="rotulo">{d.creditos}</p>}
+      <div class="fim-nav">
+        <a class="btn" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar.`)} target="_blank" rel="noopener">Quero um projeto assim</a>
+        {proximo.id !== projeto.id && (
+          <a class="prox" href={`/projetos/${proximo.id.replace(/^\d+-/, '')}`}>
+            <span class="rotulo">Próximo projeto</span>
+            <span class="h-2">{proximo.data.titulo} →</span>
+          </a>
+        )}
+      </div>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .cab { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(24px, 4vw, 48px); display: grid; gap: 20px; }
+  .cab .rotulo { margin: 0; }
+  .capa { width: 100%; aspect-ratio: 4 / 5; max-height: 92svh; }
+  @media (min-width: 700px) { .capa { aspect-ratio: 16 / 9; } }
+  .ph { width: 100%; height: 100%; display: grid; place-items: center; background: var(--ph); color: var(--papel); font-size: 1.6rem; }
+
+  .intro { display: grid; gap: 48px; padding-block: clamp(56px, 10vw, 140px); }
+  .ficha { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-self: start; border-top: 1px solid var(--tinta); }
+  .ficha div { padding: 14px 0; border-bottom: 1px solid var(--linha); }
+  .ficha dt { margin-bottom: 4px; }
+  .ficha dd { margin: 0; font-size: .95rem; }
+  .intro .frase { margin-bottom: 36px; }
+  @media (min-width: 860px) { .intro { grid-template-columns: 4fr 7fr; gap: 8vw; } .ficha { grid-template-columns: 1fr; } }
+
+  .galeria { display: grid; gap: clamp(28px, 5vw, 64px); }
+  .gi { margin: 0; }
+  .gi figcaption { padding-top: 12px; }
+  @media (min-width: 860px) {
+    .galeria { grid-template-columns: repeat(12, 1fr); column-gap: 24px; align-items: start; }
+    .gi--cheia { grid-column: 1 / -1; }
+    .gi--meia:nth-of-type(odd) { grid-column: 1 / span 6; }
+    .gi--meia:nth-of-type(even) { grid-column: 8 / span 5; margin-top: 12vw; }
+  }
+
+  .plantas { background: #fff; margin-top: clamp(80px, 12vw, 160px); padding-block: clamp(56px, 9vw, 120px); }
+  .sec-topo { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--tinta); padding-top: 18px; margin-bottom: 48px; }
+  .pl-grade { display: grid; gap: 48px; }
+  .pl-grade figure { margin: 0; }
+  .pl-img { display: block; border: 1px solid var(--linha); }
+  .pl-grade figcaption { padding-top: 12px; }
+  @media (min-width: 860px) { .pl-grade { grid-template-columns: 1fr 1fr; gap: 64px 40px; } }
+
+  .fim { padding-block: clamp(56px, 10vw, 140px); display: grid; gap: 40px; }
+  .fim-nav { display: grid; gap: 48px; align-items: end; }
+  .prox { display: grid; gap: 10px; }
+  @media (min-width: 860px) { .fim-nav { grid-template-columns: auto 1fr; } .prox { justify-self: end; text-align: right; } }
+</style>

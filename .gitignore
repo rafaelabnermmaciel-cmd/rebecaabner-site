@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.DS_Store
+# PDFs originais ficam fora do repositório (pesados)
+material/*.pdf

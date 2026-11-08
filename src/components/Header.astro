@@ -1,0 +1,35 @@
+---
+import Monograma from './Monograma.astro';
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const itens = [
+  { href: '/projetos', label: 'Projetos' },
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/contato', label: 'Contato' },
+];
+---
+<header class="topo" transition:persist>
+  <div class="wrap topo-in">
+    <a href="/" class="marca" aria-label="Rebeca Abner, página inicial">
+      <Monograma size={26} />
+      <span class="rotulo marca-nome">Rebeca Abner</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul>
+        {itens.map((i) => (
+          <li><a href={i.href} class="rotulo link" aria-current={path.startsWith(i.href) ? 'page' : undefined}>{i.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .topo { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--papel) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .topo-in { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .marca { display: flex; align-items: center; gap: 12px; color: var(--tinta); }
+  .marca-nome { color: var(--tinta); letter-spacing: .3em; }
+  ul { display: flex; gap: clamp(14px, 3vw, 40px); list-style: none; margin: 0; padding: 0; }
+  nav a { color: var(--tinta); }
+  nav a[aria-current='page']::after { transform: scaleX(1); }
+  @media (max-width: 520px) { .marca-nome { display: none; } .topo-in { height: 58px; } }
+</style>

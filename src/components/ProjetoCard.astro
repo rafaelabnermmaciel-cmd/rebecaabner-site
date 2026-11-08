@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import { dois } from '../lib/projetos';
+interface Props { projeto: any; tamanho?: 'grande' | 'pequeno'; eager?: boolean }
+const { projeto, tamanho = 'grande', eager = false } = Astro.props;
+const d = projeto.data;
+const cor = d.categoria === 'Residencial' ? 'var(--salvia)' : 'var(--terracota)';
+---
+<a href={`/projetos/${projeto.id.replace(/^\d+-/, '')}`} class:list={['card', `card--${tamanho}`]} data-reveal>
+  <div class="foto" style={`--ph:${cor}`} transition:name={`capa-${projeto.id}`}>
+    {(d.miniatura ?? d.capa) ? (
+      <Image src={d.miniatura ?? d.capa} widths={tamanho === 'grande' ? [640, 1000, 1600] : [480, 800]}
+        sizes={tamanho === 'grande' ? '(min-width: 860px) 62vw, 100vw' : '(min-width: 860px) 34vw, 100vw'}
+        alt={`${d.titulo}: ${d.resumo}`} loading={eager ? 'eager' : 'lazy'} />
+    ) : (
+      <div class="ph"><span class="serif">Imagens a caminho</span></div>
+    )}
+  </div>
+  <div class="legenda">
+    <span class="num">{dois(d.numero)}</span>
+    <div>
+      <h3>{d.titulo}</h3>
+      <p class="rotulo">{[d.status, d.categoria, d.local?.split(',')[0], d.ano].filter(Boolean).join(' · ')}</p>
+    </div>
+  </div>
+</a>
+
+<style>
+  .card { display: block; }
+  .foto { aspect-ratio: 4 / 3; }
+  .card--pequeno .foto { aspect-ratio: 4 / 5; }
+  .ph { width: 100%; height: 100%; display: grid; place-items: center; background: var(--ph); color: var(--papel); font-size: 1.4rem; }
+  .legenda { display: grid; grid-template-columns: 3.2em 1fr; gap: 0 8px; padding-top: 16px; align-items: baseline; }
+  h3 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); letter-spacing: -0.04em; margin-bottom: 8px; }
+  .rotulo { margin: 0; }
+</style>
