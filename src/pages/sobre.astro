@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import retrato from '../assets/rebeca.webp';
-import { waLink } from '../lib/site';
+import { u } from '../lib/url';
 
 const formacao = [
   ['Previsão 2031', 'Arquitetura e Urbanismo (em curso)', 'Instituto de Desenvolvimento e Pesquisa · IDP'],
@@ -73,7 +73,7 @@ const idiomas = [['Português', 'Nativo'], ['Inglês', 'Avançado'], ['Espanhol'
   </section>
 
   <section class="wrap fim">
-    <a class="btn" href={waLink()} target="_blank" rel="noopener">Conversar sobre um projeto</a>
+    <a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a>
   </section>
 </Base>
 

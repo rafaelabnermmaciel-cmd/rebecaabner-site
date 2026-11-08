@@ -5,6 +5,9 @@ import ProjetoCard from '../components/ProjetoCard.astro';
 import { projetosPublicados } from '../lib/projetos';
 import { waLink } from '../lib/site';
 import { u } from '../lib/url';
+import Etapas from '../components/Etapas.astro';
+import { SERVICOS } from '../lib/servicos';
+import { dois } from '../lib/projetos';
 import destaque from '../assets/projetos/education-suporte/01-recepcao.webp';
 import textura from '../assets/textura-brasilia.webp';
 
@@ -29,7 +32,10 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     <p class="serif frase" data-reveal>Ambientes que unem função, beleza e bem-estar.</p>
     <div class="texto" data-reveal>
       <p>Projetos de interiores residenciais e comerciais em Brasília, do primeiro esboço ao acompanhamento da obra.</p>
-      <a class="link rotulo" href={u('/sobre')}>Sobre a Rebeca →</a>
+      <div class="acoes">
+        <a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a>
+        <a class="link rotulo" href={u('/sobre')}>Sobre a Rebeca →</a>
+      </div>
     </div>
   </section>
 
@@ -45,12 +51,32 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     </div>
   </section>
 
+  <section class="servicos wrap" aria-labelledby="t-serv">
+    <header class="sec-topo">
+      <h2 id="t-serv" class="h-2">Serviços</h2>
+      <a class="link rotulo" href={u('/servicos')}>Como funciona</a>
+    </header>
+    <ul class="serv-lista">
+      {SERVICOS.map((s, i) => (
+        <li data-reveal><span class="num">{dois(i + 1)}</span><h3>{s.titulo}</h3><p>{s.texto}</p></li>
+      ))}
+    </ul>
+    <div class="etapas-home">
+      <p class="rotulo">Do primeiro contato à obra</p>
+      <Etapas compacto />
+    </div>
+  </section>
+
   <section class="chamada">
     <Image src={textura} alt="" class="chamada-textura" widths={[600, 1000]} sizes="100vw" loading="lazy" />
     <div class="wrap chamada-in" data-reveal>
       <p class="rotulo">Contato</p>
       <h2 class="h-1">Vamos conversar<br /><span class="serif">sobre o seu espaço?</span></h2>
-      <a class="btn" href={waLink()} target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <p class="chamada-txt">Conte o que você precisa e receba uma proposta com escopo, prazo e valor. A primeira conversa é sem compromisso.</p>
+      <div class="acoes">
+        <a class="btn btn--claro btn--cheio-claro" href={u('/orcamento')}>Pedir orçamento</a>
+        <a class="btn" href={waLink('Olá, Rebeca! Vim pelo seu site e gostaria de um orçamento para um projeto de interiores.')} target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
     </div>
   </section>
 </Base>
@@ -82,6 +108,25 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
     .g-2 { grid-column: 3 / span 8; }
   }
 
+  .acoes { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
+  .servicos { margin-top: clamp(96px, 14vw, 180px); }
+  .serv-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 32px; }
+  .serv-lista li { display: grid; grid-template-columns: 3em 1fr; gap: 6px 12px; }
+  .serv-lista h3 { font-size: clamp(1.4rem, 2.6vw, 2rem); letter-spacing: -0.04em; }
+  .serv-lista p { grid-column: 2; margin: 0; color: var(--tinta-2); max-width: 44ch; }
+  .serv-lista .num { padding-top: .5em; }
+  .etapas-home { margin-top: clamp(56px, 8vw, 96px); display: grid; gap: 16px; }
+  .etapas-home > .rotulo { margin: 0; color: var(--tinta); }
+  @media (min-width: 860px) {
+    .serv-lista { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .serv-lista li { grid-template-columns: 1fr; }
+    .serv-lista p { grid-column: 1; }
+    .etapas-home :global(.etapas.compacto) { grid-template-columns: repeat(6, 1fr); column-gap: 20px; }
+    .etapas-home :global(.etapas.compacto li) { grid-template-columns: 1fr; }
+  }
+  .chamada-txt { max-width: 46ch; color: color-mix(in srgb, var(--papel) 80%, transparent); margin: 0; }
+  .btn--cheio-claro { background: var(--papel); color: var(--tinta); border-color: var(--papel); }
+  .btn--cheio-claro:hover { background: var(--terracota); color: var(--papel); border-color: var(--terracota); }
   .chamada { position: relative; margin-top: clamp(96px, 14vw, 180px); background: var(--tinta); color: var(--papel); overflow: hidden; }
   .chamada-textura { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .22; filter: grayscale(1) contrast(1.1); }
   .chamada-in { position: relative; padding-block: clamp(80px, 14vw, 180px); display: grid; gap: 28px; justify-items: start; }

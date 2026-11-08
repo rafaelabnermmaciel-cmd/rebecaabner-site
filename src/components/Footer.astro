@@ -1,15 +1,18 @@
 ---
 import Monograma from './Monograma.astro';
 import { SITE, waLink } from '../lib/site';
+import { u } from '../lib/url';
 const ano = new Date().getFullYear();
 ---
 <footer class="rodape">
   <div class="wrap grid">
     <div class="assina">
       <Monograma size={40} />
-      <p class="rotulo">Rebeca Abner<br />Design de Interiores · Brasília</p>
+      <p class="rotulo">Rebeca Abner<br />Design de Interiores · Brasília e DF</p>
     </div>
     <ul class="contatos">
+      <li><a class="link" href={u('/orcamento')}><b>Pedir orçamento →</b></a></li>
+      <li><a class="link" href={u('/servicos')}>Serviços e como funciona</a></li>
       <li><a class="link" href={waLink()} target="_blank" rel="noopener">WhatsApp {SITE.whatsappExibicao}</a></li>
       <li><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
       <li><a class="link" href={`https://www.instagram.com/${SITE.instagram}`} target="_blank" rel="noopener">Instagram @{SITE.instagram}</a></li>

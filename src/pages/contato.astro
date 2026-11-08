@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE, waLink } from '../lib/site';
+import { u } from '../lib/url';
 const canais = [
   { rotulo: 'WhatsApp', valor: SITE.whatsappExibicao, href: waLink(), ext: true },
   { rotulo: 'E-mail', valor: SITE.email, href: `mailto:${SITE.email}` },
@@ -13,6 +14,7 @@ const canais = [
     <p class="rotulo">Contato</p>
     <h1 class="h-1">Vamos<br /><span class="serif">conversar?</span></h1>
     <p class="texto">Conte um pouco sobre o seu espaço: o que é, onde fica e o que você gostaria de mudar. A resposta vem pelo canal que você preferir.</p>
+    <div><a class="btn btn--cheio" href={u('/orcamento')}>Pedir orçamento</a></div>
   </section>
   <ul class="wrap canais">
     {canais.map((c) => (

@@ -84,3 +84,6 @@ a:hover .foto img, .foto--zoom:hover img { transform: scale(1.025); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   [data-reveal], .foto[data-reveal] img { opacity: 1; transform: none; }
 }
+
+.btn--cheio { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+.btn--cheio:hover { background: var(--terracota); border-color: var(--terracota); color: var(--papel); }

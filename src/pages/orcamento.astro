@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import Etapas from '../components/Etapas.astro';
+import { SITE, waLink } from '../lib/site';
+const tipos = ['Residencial', 'Comercial'];
+const servicos = ['Projeto completo', 'Um ou poucos ambientes', 'Marcenaria sob medida', 'Consultoria', 'Ainda não sei'];
+const prazos = ['O quanto antes', 'Nos próximos 3 meses', 'Daqui a 6 meses ou mais', 'Só pesquisando'];
+---
+<Base titulo="Pedir orçamento" descricao="Peça um orçamento de projeto de interiores com a Rebeca Abner, em Brasília. Responda algumas perguntas e envie direto pelo WhatsApp.">
+  <section class="wrap cab">
+    <p class="rotulo">Orçamento</p>
+    <h1 class="h-1">Conte sobre<br /><span class="serif">o seu espaço.</span></h1>
+    <p class="texto">Responda o que souber. A mensagem chega pronta no WhatsApp da Rebeca, e você recebe a resposta com os próximos passos e a proposta.</p>
+  </section>
+
+  <section class="wrap corpo">
+    <form id="form-orc" class="form" novalidate>
+      <div class="campo">
+        <label for="f-nome">Seu nome</label>
+        <input id="f-nome" name="nome" autocomplete="name" required placeholder="Como posso te chamar?" />
+      </div>
+
+      <fieldset class="campo">
+        <legend>Tipo de espaço</legend>
+        <div class="chips">{tipos.map((t, i) => <label class="chip"><input type="radio" name="tipo" value={t} checked={i === 0} /><span>{t}</span></label>)}</div>
+      </fieldset>
+
+      <fieldset class="campo">
+        <legend>O que você precisa</legend>
+        <div class="chips">{servicos.map((t, i) => <label class="chip"><input type="radio" name="servico" value={t} checked={i === 0} /><span>{t}</span></label>)}</div>
+      </fieldset>
+
+      <div class="duas">
+        <div class="campo">
+          <label for="f-amb">Quais ambientes</label>
+          <input id="f-amb" name="ambientes" placeholder="Ex.: sala, cozinha e quarto" />
+        </div>
+        <div class="campo">
+          <label for="f-area">Tamanho aproximado</label>
+          <input id="f-area" name="area" inputmode="numeric" placeholder="Ex.: 70 m²" />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="f-local">Bairro ou cidade</label>
+        <input id="f-local" name="local" placeholder="Ex.: Asa Norte, Águas Claras, Lago Sul" />
+      </div>
+
+      <fieldset class="campo">
+        <legend>Quando quer começar</legend>
+        <div class="chips">{prazos.map((t, i) => <label class="chip"><input type="radio" name="prazo" value={t} checked={i === 1} /><span>{t}</span></label>)}</div>
+      </fieldset>
+
+      <div class="campo">
+        <label for="f-msg">Mais detalhes <span class="opc">(opcional)</span></label>
+        <textarea id="f-msg" name="mensagem" rows="4" placeholder="Conte o que te incomoda no espaço hoje, o estilo que você gosta, se já tem móveis que quer manter…"></textarea>
+      </div>
+
+      <p class="erro" id="f-erro" role="alert" hidden>Escreva seu nome para a Rebeca saber com quem está falando.</p>
+
+      <div class="enviar">
+        <button type="submit" class="btn btn--cheio">Enviar pelo WhatsApp</button>
+        <a class="link rotulo" id="f-email" href={`mailto:${SITE.email}`}>Prefiro enviar por e-mail</a>
+      </div>
+    </form>
+
+    <aside class="lado">
+      <p class="rotulo">Como funciona</p>
+      <Etapas compacto />
+      <div class="direto">
+        <p class="rotulo">Prefere conversar direto?</p>
+        <a class="link" href={waLink()} target="_blank" rel="noopener">WhatsApp {SITE.whatsappExibicao}</a>
+        <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+    </aside>
+  </section>
+</Base>
+
+<script>
+  import { SITE } from '../lib/site';
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('form-orc') as HTMLFormElement | null;
+    if (!form) return;
+    const ref = new URLSearchParams(location.search).get('projeto');
+    const msg = form.querySelector<HTMLTextAreaElement>('#f-msg')!;
+    if (ref && !msg.value) msg.value = `Vi o projeto ${ref} no site.`;
+
+    const montar = () => {
+      const d = new FormData(form);
+      const v = (k: string) => String(d.get(k) ?? '').trim();
+      const linhas = [
+        `Olá, Rebeca! Vim pelo seu site e gostaria de um orçamento.`,
+        ``,
+        `Nome: ${v('nome')}`,
+        `Tipo de espaço: ${v('tipo')}`,
+        `O que preciso: ${v('servico')}`,
+        v('ambientes') && `Ambientes: ${v('ambientes')}`,
+        v('area') && `Tamanho aproximado: ${v('area')}`,
+        v('local') && `Local: ${v('local')}`,
+        `Quando quero começar: ${v('prazo')}`,
+        v('mensagem') && `\n${v('mensagem')}`,
+      ].filter((l) => l !== '' && l !== undefined && l !== false);
+      return linhas.join('\n');
+    };
+    const valido = () => {
+      const ok = !!(form.elements.namedItem('nome') as HTMLInputElement).value.trim();
+      document.getElementById('f-erro')!.hidden = ok;
+      if (!ok) (form.elements.namedItem('nome') as HTMLInputElement).focus();
+      return ok;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!valido()) return;
+      window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(montar())}`, '_blank', 'noopener');
+    });
+    document.getElementById('f-email')!.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!valido()) return;
+      location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Orçamento pelo site')}&body=${encodeURIComponent(montar())}`;
+    });
+  });
+</script>
+
+<style>
+  .cab { padding-top: clamp(40px, 9vw, 110px); padding-bottom: clamp(36px, 6vw, 72px); display: grid; gap: 24px; }
+  .cab .rotulo { margin: 0; }
+  .corpo { display: grid; gap: 64px; padding-bottom: clamp(80px, 12vw, 160px); }
+  @media (min-width: 960px) { .corpo { grid-template-columns: 7fr 4fr; gap: 6vw; align-items: start; } .lado { position: sticky; top: 96px; } }
+  .form { display: grid; gap: 28px; border-top: 1px solid var(--tinta); padding-top: 28px; }
+  .campo { display: grid; gap: 10px; border: 0; margin: 0; padding: 0; min-width: 0; }
+  label, legend { font: 500 .72rem/1.4 var(--f-texto); text-transform: uppercase; letter-spacing: .2em; color: var(--tinta); padding: 0; margin-bottom: 2px; }
+  .opc { text-transform: none; letter-spacing: 0; color: var(--tinta-2); font-weight: 400; }
+  input:not([type='radio']), textarea {
+    width: 100%; font: 400 1.05rem/1.4 var(--f-texto); color: var(--tinta); background: transparent;
+    border: 0; border-bottom: 1px solid var(--linha); border-radius: 0; padding: 10px 0; transition: border-color .3s;
+  }
+  textarea { resize: vertical; border: 1px solid var(--linha); padding: 12px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--tinta); }
+  input::placeholder, textarea::placeholder { color: #a39d94; }
+  .duas { display: grid; gap: 28px; }
+  @media (min-width: 640px) { .duas { grid-template-columns: 2fr 1fr; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { text-transform: none; letter-spacing: 0; font: 400 .95rem/1 var(--f-texto); cursor: pointer; margin: 0; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span { display: inline-block; padding: .7em 1.1em; border: 1px solid var(--linha); border-radius: 999px; transition: all .25s var(--ease); }
+  .chip:hover span { border-color: var(--tinta); }
+  .chip input:checked + span { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+  .chip input:focus-visible + span { outline: 2px solid var(--terracota); outline-offset: 2px; }
+  .erro { color: var(--terracota); margin: 0; }
+  .enviar { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center; }
+  button.btn { cursor: pointer; font-family: var(--f-texto); }
+  .lado { display: grid; gap: 18px; align-content: start; }
+  .lado > .rotulo { margin: 0; color: var(--tinta); }
+  .direto { display: grid; gap: 8px; margin-top: 24px; border-top: 1px solid var(--tinta); padding-top: 18px; }
+  .direto .rotulo { margin: 0 0 4px; }
+</style>

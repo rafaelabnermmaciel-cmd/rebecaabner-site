@@ -84,7 +84,11 @@ const ficha = [
     <footer class="wrap fim">
       {d.creditos && <p class="rotulo">{d.creditos}</p>}
       <div class="fim-nav">
-        <a class="btn" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar.`)} target="_blank" rel="noopener">Quero um projeto assim</a>
+        <div class="cta">
+          <p class="serif cta-frase">Gostou deste projeto?</p>
+          <a class="btn btn--cheio" href={u(`/orcamento?projeto=${encodeURIComponent(d.titulo)}`)}>Pedir orçamento</a>
+          <a class="link rotulo" href={waLink(`Olá, Rebeca! Vi o projeto ${d.titulo} no seu site e gostaria de conversar.`)} target="_blank" rel="noopener">Falar no WhatsApp →</a>
+        </div>
         {proximo.id !== projeto.id && (
           <a class="prox" href={u(`/projetos/${proximo.id.replace(/^\d+-/, '')}`)}>
             <span class="rotulo">Próximo projeto</span>
@@ -132,5 +136,7 @@ const ficha = [
   .fim { padding-block: clamp(56px, 10vw, 140px); display: grid; gap: 40px; }
   .fim-nav { display: grid; gap: 48px; align-items: end; }
   .prox { display: grid; gap: 10px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: center; }
+  .cta-frase { width: 100%; font-size: clamp(1.6rem, 3.6vw, 2.4rem); margin: 0; }
   @media (min-width: 860px) { .fim-nav { grid-template-columns: auto 1fr; } .prox { justify-self: end; text-align: right; } }
 </style>

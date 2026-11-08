@@ -2,9 +2,9 @@
 // Botão flutuante de WhatsApp (adaptado do site Ela me Fez), em versão discreta.
 import { waLink } from '../lib/site';
 ---
-<a class="fab-wa" href={waLink()} target="_blank" rel="noopener" aria-label="Conversar com a Rebeca no WhatsApp" transition:persist>
+<a class="fab-wa" href={waLink('Olá, Rebeca! Vim pelo seu site e gostaria de um orçamento para um projeto de interiores.')} target="_blank" rel="noopener" aria-label="Pedir orçamento à Rebeca pelo WhatsApp" transition:persist>
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.9 13.9c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.5-4-.1-.2-1-1.4-1-2.7s.7-1.9.9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-  <span class="fab-txt">Conversar</span>
+  <span class="fab-txt">Orçamento</span>
 </a>
 
 <style>
