@@ -51,7 +51,7 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
   <section class="servicos wrap" aria-labelledby="t-serv">
     <header class="sec-topo">
       <h2 id="t-serv" class="h-2">Serviços</h2>
-      <a class="link rotulo" href={u('/servicos')}>Como funciona</a>
+      <a class="link rotulo" href={u('/servicos')}>O caminho de um projeto</a>
     </header>
     <ul class="serv-lista">
       {SERVICOS.map((s, i) => (
@@ -106,7 +106,7 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
   .servicos { margin-top: clamp(96px, 14vw, 180px); }
   .serv-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 32px; }
   .serv-lista li { display: grid; grid-template-columns: 3em 1fr; gap: 6px 12px; }
-  .serv-lista h3 { font-size: clamp(1.4rem, 2.6vw, 2rem); letter-spacing: -0.04em; }
+  .serv-lista h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: -0.035em; line-height: 1.1; }
   .serv-lista p { grid-column: 2; margin: 0; color: var(--tinta-2); max-width: 44ch; }
   .serv-lista .num { padding-top: .5em; }
   .etapas-home { margin-top: clamp(56px, 8vw, 96px); display: grid; gap: 16px; }

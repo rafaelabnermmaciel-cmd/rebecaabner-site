@@ -1,15 +1,15 @@
 // Textos de serviços, etapas e perguntas frequentes. Edite aqui.
 export const SERVICOS = [
-  { titulo: 'Interiores residenciais', texto: 'Apartamentos e casas, de um único ambiente ao imóvel inteiro. Layout, marcenaria, iluminação, cores e acabamentos pensados para a sua rotina.' },
-  { titulo: 'Interiores comerciais', texto: 'Escritórios, consultórios, escolas e lojas. Espaços que funcionam bem no dia a dia e traduzem a identidade da marca.' },
-  { titulo: 'Marcenaria sob medida', texto: 'Móveis desenhados para o seu espaço e detalhados para o marceneiro executar: medidas, materiais e acabamentos.' },
-  { titulo: 'Consultoria', texto: 'Para quem quer fazer por conta própria com segurança: uma conversa no local para orientar layout, cores, iluminação e compras.' },
+  { titulo: 'Casas que contam histórias', texto: 'Apartamentos e casas pensados a partir da rotina, das memórias e dos desejos de quem mora. De um único ambiente ao imóvel inteiro.' },
+  { titulo: 'Lugares de trabalho com identidade', texto: 'Escritórios, consultórios, escolas e lojas onde a marca se faz sentir no primeiro passo, e o dia a dia flui com leveza.' },
+  { titulo: 'Móveis que nascem para o lugar', texto: 'Marcenaria desenhada sob medida para caber no espaço e na vida, detalhada para sair do papel exatamente como foi pensada.' },
+  { titulo: 'Um olhar de fora', texto: 'Para quem quer transformar o próprio espaço: uma conversa no local que orienta escolhas de layout, cor, luz e compras.' },
 ];
 
 export const ETAPAS = [
   { titulo: 'Conversa', texto: 'Você me conta pelo WhatsApp o que precisa: o espaço, como vai usar e quanto pretende investir.' },
   { titulo: 'Proposta', texto: 'Envio uma proposta com o escopo, as etapas, o prazo e o valor do projeto.' },
-  { titulo: 'Briefing e medição', texto: 'Visito o local, faço o levantamento e reunimos referências do que você gosta.' },
+  { titulo: 'Escuta e medição', texto: 'Visito o local, faço o levantamento e reunimos referências do que faz sentido para você.' },
   { titulo: 'Estudo e imagens 3D', texto: 'Apresento o layout e imagens realistas para você ver o resultado antes de gastar com a obra.' },
   { titulo: 'Projeto executivo', texto: 'Pranchas técnicas para a obra: marcenaria, iluminação, revestimentos e pontos elétricos e hidráulicos.' },
   { titulo: 'Acompanhamento', texto: 'Suporte com fornecedores e visitas à obra para que o projeto saia do papel do jeito que foi pensado.' },
