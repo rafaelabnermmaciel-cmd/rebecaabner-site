@@ -76,12 +76,12 @@ const projetos = (await projetosPublicados()).filter((p) => p.data.destaque);
 </Base>
 
 <style>
-  .abertura { padding-top: clamp(40px, 10vw, 120px); padding-bottom: clamp(28px, 5vw, 56px); display: grid; gap: 28px; }
-  .abre-rotulo { margin: 0; color: var(--tinta); }
-  .abre-lado { margin: 0; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.15; color: var(--tinta-2); }
+  .abertura { padding-top: clamp(40px, 10vw, 120px); padding-bottom: clamp(28px, 5vw, 56px); display: grid; gap: 22px; }
+  .abre-rotulo { margin: 0; color: var(--tinta-2); font-size: .62rem; letter-spacing: .2em; }
+  .abre-lado { margin: 0; font-size: clamp(1.15rem, 2vw, 1.6rem); line-height: 1.15; color: var(--tinta-2); text-align: right; justify-self: end; }
   @media (min-width: 860px) {
     .abertura { grid-template-columns: 1fr auto; align-items: end; }
-    .abre-rotulo { grid-column: 1 / -1; }
+    .abre-rotulo { grid-column: 1 / -1; font-size: .7rem; }
     .abre-lado { text-align: right; padding-bottom: .6em; }
   }
   .hero { margin: 0; }
